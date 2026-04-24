@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome | LNCT PYQ Portal</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" th:href="@{/css/sem.css}">
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+    <div class="top-bar">
+        <img th:src="@{/images/lnct.png}" alt="LNCT Logo" class="logo">
+        <input type="text" id="searchBar" placeholder="Search Semester">
+    </div>
+
+    <h1>B.Tech - CSE</h1>
+    <h2>LNCT University, Bhopal</h2>
+
+    <!-- Dynamic Data -->
+    <p>
+        Welcome <span th:text="${name}"></span> |
+        Enrollment No: <span th:text="${enrollment}"></span>
+    </p>
+
+    <p>Select your semester to view Previous Year Question Papers</p>
+    <p id="datetime"></p>
+</div>
+
+<!-- SEMESTER GRID -->
+<div class="semester">
+    <div class="semester-box"><a th:href="@{/sem1}">Semester 1</a></div>
+    <div class="semester-box"><a th:href="@{/sem2}">Semester 2</a></div>
+    <div class="semester-box"><a th:href="@{/sem3}">Semester 3</a></div>
+    <div class="semester-box"><a th:href="@{/sem4}">Semester 4</a></div>
+    <div class="semester-box"><a th:href="@{/sem5}">Semester 5</a></div>
+    <div class="semester-box"><a th:href="@{/sem6}">Semester 6</a></div>
+    <div class="semester-box"><a th:href="@{/sem7}">Semester 7</a></div>
+    <div class="semester-box"><a th:href="@{/sem8}">Semester 8</a></div>
+</div>
+
+<!-- JS -->
+<script>
+    document.getElementById("datetime").innerHTML =
+      new Date().toLocaleString();
+
+    document.getElementById("searchBar").addEventListener("keyup", function () {
+      let input = this.value.toLowerCase();
+      let boxes = document.getElementsByClassName("semester-box");
+
+      for (let i = 0; i < boxes.length; i++) {
+        let text = boxes[i].innerText.toLowerCase();
+        boxes[i].style.display = text.includes(input) ? "" : "none";
+      }
+    });
+</script>
+
+</body>
+</html>

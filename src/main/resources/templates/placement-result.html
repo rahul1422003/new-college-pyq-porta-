@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Placement Quiz Result</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/placement-quiz.css}">
+</head>
+<body>
+
+<header class="quiz-header">
+    <div>
+        <p>Placement Preparation</p>
+        <h1>Quiz Result</h1>
+        <span>
+            <b th:text="${name}">Student</b> |
+            Enrollment No: <b th:text="${enrollment}">Enrollment</b>
+        </span>
+    </div>
+    <a href="/placement">Back</a>
+</header>
+
+<main class="result-layout">
+    <section class="score-panel">
+        <p>Your Score</p>
+        <strong th:text="${result.scorePercent + '%'}">0%</strong>
+        <span th:text="${result.correctAnswers + ' correct out of ' + result.totalQuestions}">0 correct</span>
+        <div class="result-actions">
+            <a href="/placement/quiz">Retake Quiz</a>
+            <a href="/course">Course Home</a>
+        </div>
+    </section>
+
+    <section class="quiz-card">
+        <div class="question-card" th:each="question, stat : ${questions}">
+            <div class="question-meta">
+                <span th:text="${'Q' + stat.count}">Q1</span>
+                <span th:text="${question.category}">Aptitude</span>
+            </div>
+            <h2 th:text="${question.question}">Question text</h2>
+
+            <p>Your answer:
+                <b th:text="${answers['q' + question.id] ?: 'Not answered'}">A</b>
+            </p>
+            <p>Correct answer: <b th:text="${question.correctOption}">A</b></p>
+            <p class="explain" th:if="${question.explanation != null && !question.explanation.isEmpty()}"
+               th:text="${question.explanation}">Explanation</p>
+        </div>
+    </section>
+</main>
+
+</body>
+</html>

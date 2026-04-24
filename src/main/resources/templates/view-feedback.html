@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>View Feedback</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background: #1e1e2f;
+            color: white;
+            text-align: center;
+        }
+
+        h2 {
+            margin-top: 20px;
+        }
+
+        table {
+            margin: 30px auto;
+            border-collapse: collapse;
+            width: 80%;
+            background: #2f2f4f;
+        }
+
+        th, td {
+            padding: 12px;
+            border: 1px solid #444;
+        }
+
+        th {
+            background: #00c6ff;
+            color: black;
+        }
+
+        tr:hover {
+            background: #3a3a5f;
+        }
+
+        a {
+            text-decoration: none;
+            color: white;
+            background: red;
+            padding: 6px 10px;
+            border-radius: 5px;
+        }
+
+        a:hover {
+            background: darkred;
+        }
+
+        .back {
+            margin-top: 20px;
+            display: inline-block;
+            background: #00c6ff;
+            padding: 10px 15px;
+            border-radius: 6px;
+            color: black;
+        }
+    </style>
+</head>
+
+<body>
+
+<h2>⭐ User Feedback</h2>
+
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Enrollment</th>
+        <th>Subject</th>
+        <th>Rating</th>
+        <th>Comment</th>
+        <th>Action</th>
+    </tr>
+
+    <tr th:each="f : ${list}">
+        <td th:text="${f.name}"></td>
+        <td th:text="${f.enrollment}"></td>
+        <td th:text="${f.subject}"></td>
+        <td th:text="${f.rating}"></td>
+        <td th:text="${f.comment}"></td>
+        <td>
+            <a th:href="@{'/admin/delete-feedback/' + ${f.id}}">
+                ❌ Delete
+            </a>
+        </td>
+    </tr>
+</table>
+
+<a href="/admin/dashboard" class="back">⬅ Back</a>
+
+</body>
+</html>

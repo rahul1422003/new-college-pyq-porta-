@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Placement Quiz Results</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/admin-dashboard.css}">
+</head>
+<body>
+
+<div class="dashboard-shell">
+    <aside class="sidebar">
+        <div class="brand">
+            <span class="brand-mark">LP</span>
+            <div>
+                <h2>LNCT Portal</h2>
+                <p>Result Center</p>
+            </div>
+        </div>
+        <nav>
+            <a href="/admin/dashboard">Dashboard</a>
+            <a href="/admin/upload">Upload PYQ</a>
+            <a href="/admin/manage-users">Manage Users</a>
+            <a href="/admin/user-logins">User Logins</a>
+            <a href="/admin/placement-quiz">Placement Quiz</a>
+            <a href="/admin/placement-results" class="active">Quiz Results</a>
+            <a href="/admin/feedback">Feedback</a>
+            <a href="/admin/logout" class="logout-link">Logout</a>
+        </nav>
+    </aside>
+
+    <main class="content">
+        <section class="topbar">
+            <div>
+                <p class="eyebrow">Placement Preparation</p>
+                <h1>Generated Results</h1>
+            </div>
+            <a href="/admin/placement-quiz" class="primary-action">Manage Questions</a>
+        </section>
+
+        <section class="panel">
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Enrollment</th>
+                        <th>Score</th>
+                        <th>Correct</th>
+                        <th>Attempted At</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="result : ${results}">
+                        <td th:text="${result.name}">Student</td>
+                        <td th:text="${result.enrollment}">Enrollment</td>
+                        <td><span class="score-badge" th:text="${result.scorePercent + '%'}">0%</span></td>
+                        <td th:text="${result.correctAnswers + '/' + result.totalQuestions}">0/0</td>
+                        <td th:text="${#temporals.format(result.attemptedAt, 'dd MMM yyyy, hh:mm a')}">Date</td>
+                        <td><a class="danger-link" th:href="@{'/admin/delete-result/' + ${result.id}}">Delete</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="empty-state" th:if="${results.isEmpty()}">No placement quiz result generated yet.</div>
+        </section>
+    </main>
+</div>
+
+</body>
+</html>

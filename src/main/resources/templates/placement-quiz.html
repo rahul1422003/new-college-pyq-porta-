@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Placement Quiz</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/placement-quiz.css}">
+</head>
+<body>
+
+<header class="quiz-header">
+    <div>
+        <p>Placement Preparation</p>
+        <h1>Practice Quiz</h1>
+        <span>
+            Welcome <b th:text="${name}">Student</b> |
+            Enrollment No: <b th:text="${enrollment}">Enrollment</b>
+        </span>
+    </div>
+    <a href="/placement">Back</a>
+</header>
+
+<main class="quiz-layout">
+    <aside class="quiz-summary">
+        <h2>Quiz Status</h2>
+        <strong th:text="${questions.size()}">0</strong>
+        <p>Total questions available</p>
+
+        <div th:if="${!previousResults.isEmpty()}">
+            <h3>Previous Scores</h3>
+            <div class="past-score" th:each="result : ${previousResults}">
+                <span th:text="${#temporals.format(result.attemptedAt, 'dd MMM, hh:mm a')}">Date</span>
+                <b th:text="${result.scorePercent + '%'}">0%</b>
+            </div>
+        </div>
+    </aside>
+
+    <section class="quiz-card">
+        <div class="empty-state" th:if="${questions.isEmpty()}">
+            Quiz questions will appear here after admin adds them.
+        </div>
+
+        <form action="/placement/quiz/submit" method="post" th:if="${!questions.isEmpty()}">
+            <div class="question-card" th:each="question, stat : ${questions}">
+                <div class="question-meta">
+                    <span th:text="${'Q' + stat.count}">Q1</span>
+                    <span th:text="${question.category}">Aptitude</span>
+                    <span th:text="${question.difficulty}">Easy</span>
+                </div>
+                <h2 th:text="${question.question}">Question text</h2>
+
+                <label><input type="radio" th:name="${'q' + question.id}" value="A" required> <span th:text="${question.optionA}">A</span></label>
+                <label><input type="radio" th:name="${'q' + question.id}" value="B"> <span th:text="${question.optionB}">B</span></label>
+                <label><input type="radio" th:name="${'q' + question.id}" value="C"> <span th:text="${question.optionC}">C</span></label>
+                <label><input type="radio" th:name="${'q' + question.id}" value="D"> <span th:text="${question.optionD}">D</span></label>
+            </div>
+
+            <button type="submit">Generate Result</button>
+        </form>
+    </section>
+</main>
+
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Placement Preparation | LNCT PYQ Portal</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" th:href="@{/css/placement.css}">
+</head>
+
+<body>
+
+<div class="header">
+    <img th:src="@{/images/lnct.png}" alt="LNCT Logo" class="logo">
+
+    <input type="text" id="searchBar" placeholder="Search Section...">
+
+    <div class="title">
+        <h1>💼 PLACEMENT PREPARATION</h1>
+        <h2>LNCT University, Bhopal</h2>
+
+        <p>
+            Welcome <span th:text="${name}"></span> |
+            Enrollment No: <span th:text="${enrollment}"></span>
+        </p>
+
+        <p id="datetime"></p>
+    </div>
+</div>
+
+<div class="subject">
+
+    <div class="box-container highlight">
+        <span class="badge">🔥 Most Important</span>
+        <h3>📊 Aptitude</h3>
+        <p class="desc">Quant • Reasoning • Verbal</p>
+        <ul>
+            <li><a th:href="@{/placement/aptitude-lab}">🧠 Practice Questions</a></li>
+            <li><a th:href="@{/placement/quiz}">📝 Take Quiz</a></li>
+        </ul>
+        <div class="card-bottom">
+            <span class="rating-text">⭐ 4.9/5</span><br>
+            <a th:href="@{/feedback(subject='Aptitude')}" class="fb-btn">Give Feedback</a>
+        </div>
+    </div>
+
+    <div class="box-container highlight">
+        <span class="badge">🔥 Core Section</span>
+        <h3>💻 Technical</h3>
+        <p class="desc">DSA • DBMS • OS • CN</p>
+        <ul>
+            <li><a th:href="@{/placement/fundamentals-lab}">📘 Practice Questions</a></li>
+            <li><a th:href="@{/placement/quiz}">📝 Take Quiz</a></li>
+        </ul>
+        <div class="card-bottom">
+            <span class="rating-text">⭐ 4.8/5</span><br>
+            <a th:href="@{/feedback(subject='Technical')}" class="fb-btn">Give Feedback</a>
+        </div>
+    </div>
+
+    <div class="box-container coding-highlight">
+        <span class="badge">🚀 Practice Now</span>
+        <h3>👨‍💻 Coding Practice</h3>
+        <p class="desc">Solve on LeetCode</p>
+        <ul>
+            <li><a href="https://leetcode.com/problemset/" target="_blank">Solve on Leetcode🔗</a></li>
+        </ul>
+        <div class="card-bottom">
+            <span class="rating-text">⭐ 4.7/5</span><br>
+            <a th:href="@{/feedback(subject='Coding')}" class="fb-btn">Give Feedback</a>
+        </div>
+    </div>
+
+    <div class="box-container">
+        <h3>🗣️ Interview Preparation</h3>
+        <p class="desc">HR + Technical Questions</p>
+        <ul>
+            <li><a th:href="@{/placement/interview-format}">Top HR Questions</a></li>
+            <li><a th:href="@{/placement/interview-format}">Technical Q&A</a></li>
+            <li><a th:href="@{/placement/interview-format}">Mock Interview</a></li>
+        </ul>
+        <div class="card-bottom">
+            <span class="rating-text">⭐ 4.5/5</span><br>
+            <a th:href="@{/feedback(subject='Interview')}" class="fb-btn">Give Feedback</a>
+        </div>
+    </div>
+
+    <div class="box-container">
+        <h3>📄 Resume Tips</h3>
+        <p class="desc">Build a strong resume</p>
+        <ul>
+            <li><a th:href="@{/placement/resume-format}">Resume Template</a></li>
+            <li><a th:href="@{/placement/resume-format}">Do's & Don'ts</a></li>
+            <li><a th:href="@{/placement/resume-format}">Sample Resume</a></li>
+        </ul>
+        <div class="card-bottom">
+            <span class="rating-text">⭐ 4.4/5</span><br>
+            <a th:href="@{/feedback(subject='Resume')}" class="fb-btn">Give Feedback</a>
+        </div>
+    </div>
+
+    <div class="box-container">
+        <h3>🏢 Company-wise Questions</h3>
+        <p class="desc">TCS • Infosys • Wipro</p>
+        <ul>
+            <li><a th:href="@{/pdf/TCS_WebStyle_Preparation.pdf}">TCS Questions</a></li>
+            <li><a th:href="@{/pdf/Infosys_WebStyle_Preparation.pdf}">Infosys Questions</a></li>
+            <li><a th:href="@{/pdf/Wipro_WebStyle_Preparation.pdf}">Wipro Questions</a></li>
+            <li><a th:href="@{/pdf/Capgemini_WebStyle_Preparation.pdf}">Capgemeni question</a></li>
+            <li><a th:href="@{/pdf/EPAM_WebStyle_Preparation.pdf}">EPAM question</a></li>
+            <li><a th:href="@{/pdf/Cognizant_WebStyle_Preparation.pdf}">Cognizant question</a></li>
+        </ul>
+        <div class="card-bottom">
+            <span class="rating-text">⭐ 4.3/5</span><br>
+            <a th:href="@{/feedback(subject='Company')}" class="fb-btn">Give Feedback</a>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    document.getElementById("datetime").innerHTML =
+      new Date().toLocaleString();
+
+    document.getElementById("searchBar").addEventListener("keyup", function() {
+      let input = this.value.toLowerCase();
+      let boxes = document.getElementsByClassName("box-container");
+
+      for (let i = 0; i < boxes.length; i++) {
+        let text = boxes[i].textContent.toLowerCase();
+        boxes[i].style.display = text.includes(input) ? "" : "none";
+      }
+    });
+</script>
+
+</body>
+</html>

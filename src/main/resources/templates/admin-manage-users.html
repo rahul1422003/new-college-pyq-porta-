@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Manage Users</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/admin-dashboard.css}">
+</head>
+<body>
+
+<div class="dashboard-shell">
+    <aside class="sidebar">
+        <div class="brand">
+            <span class="brand-mark">LP</span>
+            <div>
+                <h2>LNCT Portal</h2>
+                <p>User Control</p>
+            </div>
+        </div>
+        <nav>
+            <a href="/admin/dashboard">Dashboard</a>
+            <a href="/admin/upload">Upload PYQ</a>
+            <a href="/admin/manage-users" class="active">Manage Users</a>
+            <a href="/admin/user-logins">User Logins</a>
+            <a href="/admin/placement-quiz">Placement Quiz</a>
+            <a href="/admin/placement-results">Quiz Results</a>
+            <a href="/admin/feedback">Feedback</a>
+            <a href="/admin/logout" class="logout-link">Logout</a>
+        </nav>
+    </aside>
+
+    <main class="content">
+        <section class="topbar">
+            <div>
+                <p class="eyebrow">Admin Control</p>
+                <h1>Manage Users</h1>
+            </div>
+            <a href="/admin/dashboard" class="secondary-action">Back Dashboard</a>
+        </section>
+
+        <section class="panel">
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Enrollment</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="user : ${users}">
+                        <td th:text="${user.name}">Student</td>
+                        <td th:text="${user.enrollment}">Enrollment</td>
+                        <td th:text="${user.email}">Email</td>
+                        <td><span class="pill" th:text="${user.role}">USER</span></td>
+                        <td><a class="danger-link" th:href="@{'/admin/delete-user/' + ${user.id}}">Delete</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="empty-state" th:if="${users.isEmpty()}">No registered users found.</div>
+        </section>
+    </main>
+</div>
+
+</body>
+</html>

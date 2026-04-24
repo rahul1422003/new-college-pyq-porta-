@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interview Format</title>
+    <style>
+        body{margin:0;background:#eef2ff;font-family:Arial,sans-serif;padding:24px;color:#0f172a}
+        .sheet{max-width:860px;margin:auto;background:#fff;border:1px solid #cbd5e1;border-radius:12px;padding:34px;box-shadow:0 12px 30px rgba(0,0,0,.08);position:relative;overflow:hidden}
+        h1,h2{margin-top:0}
+        .tag{display:inline-block;padding:6px 10px;background:#dbeafe;border-radius:999px;color:#1d4ed8;font-weight:bold;font-size:12px}
+        .block{margin-top:22px;padding-top:16px;border-top:1px dashed #cbd5e1}
+        ul{line-height:1.7}
+        .print-btn{display:inline-block;margin-top:20px;padding:10px 16px;border-radius:8px;background:#2563eb;color:#fff;text-decoration:none;font-weight:bold}
+        .watermark{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-32deg);font-size:72px;font-weight:bold;color:rgba(37,99,235,.08);white-space:nowrap;pointer-events:none;user-select:none}
+        @media print {.print-btn{display:none} body{background:#fff;padding:0}.sheet{box-shadow:none;border:none}}
+    </style>
+</head>
+<body>
+<div class="sheet">
+    <div class="watermark">Rahul yadav</div>
+    <span class="tag">Interview Format Sheet</span>
+    <h1>HR + Technical Interview Answer Format</h1>
+    <p>Name: <span th:text="${name}"></span> | Enrollment: <span th:text="${enrollment}"></span></p>
+
+    <div class="block">
+        <h2>1. Self Introduction Format</h2>
+        <ul>
+            <li>Start with name, course, semester and college.</li>
+            <li>Mention 2 technical skills and 1 strength.</li>
+            <li>End with one project or placement goal.</li>
+        </ul>
+    </div>
+
+    <div class="block">
+        <h2>2. Project Explanation Format</h2>
+        <ul>
+            <li>Problem statement</li>
+            <li>Tech stack used</li>
+            <li>Your contribution</li>
+            <li>Main challenge</li>
+            <li>Result / future scope</li>
+        </ul>
+    </div>
+
+    <div class="block">
+        <h2>3. STAR Format</h2>
+        <ul>
+            <li>Situation</li>
+            <li>Task</li>
+            <li>Action</li>
+            <li>Result</li>
+        </ul>
+    </div>
+
+    <div class="block">
+        <h2>4. Common HR Questions</h2>
+        <ul>
+            <li>Tell me about yourself</li>
+            <li>Why should we hire you?</li>
+            <li>What is your weakness?</li>
+            <li>Where do you see yourself in 5 years?</li>
+        </ul>
+    </div>
+
+    <a href="javascript:window.print()" class="print-btn">Print / Save as PDF</a>
+</div>
+</body>
+</html>

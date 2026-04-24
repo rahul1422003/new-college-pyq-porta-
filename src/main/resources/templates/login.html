@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>LNCT Login</title>
+
+    <!-- ✅ CSS -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+
+    <!-- ✅ Validation -->
+    <script>
+        function validateForm() {
+            const enrollment = document.getElementsByName("enrollment")[0].value.trim();
+            const pattern = /^L[A-Za-z]{6}[0-9]{5}$/;
+
+            if (!pattern.test(enrollment)) {
+                alert("❌ Invalid Enrollment Number!");
+                return false;
+            }
+            return true;
+        }
+    </script>
+</head>
+
+<body>
+
+<!-- 🔹 Fixed Logo -->
+<img th:src="@{/images/lnct.png}" alt="LNCT Logo" class="fixed-logo">
+
+<!-- 🔹 Login Box -->
+<div class="box">
+
+    <img th:src="@{/images/lnct.png}" alt="Logo" class="logo">
+
+    <h2 style="color:white; margin-bottom:10px;">Student Login</h2>
+
+    <!-- 🔴 Error -->
+    <p th:if="${error}" th:text="${error}" style="color:#ff4d4d;"></p>
+
+    <!-- 🟢 Success -->
+    <p th:if="${success}" th:text="${success}" style="color:#00ffcc;"></p>
+
+    <!-- 🔐 FORM -->
+    <form th:action="@{/login}" method="post" onsubmit="return validateForm()">
+
+        <!-- Name -->
+        <input type="text" name="name" placeholder="Enter your Name" required>
+
+        <!-- Enrollment -->
+        <input type="text" name="enrollment" placeholder="Enter your Enrollment" required>
+
+        <!-- Semester -->
+        <select name="semester" required>
+            <option value="" disabled selected>Select your Semester</option>
+            <option value="Semester 1">Semester 1</option>
+            <option value="Semester 2">Semester 2</option>
+            <option value="Semester 3">Semester 3</option>
+            <option value="Semester 4">Semester 4</option>
+            <option value="Semester 5">Semester 5</option>
+            <option value="Semester 6">Semester 6</option>
+            <option value="Semester 7">Semester 7</option>
+            <option value="Semester 8">Semester 8</option>
+        </select>
+
+        <!-- Submit -->
+        <button type="submit">Login</button>
+
+    </form>
+
+</div>
+
+<!-- 🔹 Credit -->
+<div class="credit-section">
+    🚀 <span class="highlight">Crafted with Passion</span> by <br>
+    <span class="name">Rahul Yadav</span>
+    <span class="enroll">(LNCDBTC21096)</span> |
+    <span class="name">Ravi Kumar Jha</span>
+    <span class="enroll">(LNCDBTC31009)</span>
+</div>
+
+</body>
+</html>

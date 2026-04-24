@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Semester 2 | LNCT PYQ Portal</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" th:href="@{/css/sem2.css}">
+</head>
+
+<body>
+
+<div class="header">
+    <img th:src="@{/images/lnct.png}" alt="LNCT Logo" class="logo">
+
+    <input type="text" id="searchBar" placeholder="Search Subject">
+
+    <div class="title">
+        <h1><u>Semester 2</u></h1>
+        <h2>LNCT University, Bhopal</h2>
+
+        <!-- ✅ Dynamic -->
+        <p>
+            Welcome <span th:text="${name}"></span> |
+            Enrollment No: <span th:text="${enrollment}"></span>
+        </p>
+
+        <p id="datetime"></p>
+    </div>
+</div>
+
+<div class="subject">
+
+    <!-- ECLS -->
+    <div class="box-container">
+        <h3>ECLS</h3>
+        <ul>
+            <li><a th:href="@{/pdf/AIML ECLS mid1_2_01-Copy.pdf}">📘 Mid Sem 1 PYQ</a></li>
+            <li><a th:href="@{/pdf/}">📘 Mid Sem 2 PYQ</a></li>
+            <li><a th:href="@{/pdf/AIML ECLS endsem_2_01-Copy.pdf}">📘 End Sem PYQ</a></li>
+            <li><a th:href="@{/pdf/Coming_Soon_Notes_Updated.pdf}">📘 Notes</a></li>
+        </ul>
+        <div class="card-bottom">
+            <span class="rating-text">⭐ 4.8/5 (22 Reviews)</span><br>
+            <a th:href="@{/feedback(subject='ECLS')}" class="fb-btn">Give Feedback</a>
+        </div>
+    </div>
+
+    <!-- Linear Algebra -->
+    <div class="box-container">
+        <h3>Linear Algebra</h3>
+        <ul>
+            <li><a th:href="@{/pdf/AIML Linear mid1.pdf}">📘 Mid Sem 1 PYQ</a></li>
+            <li><a th:href="@{/pdf/}">📘 Mid Sem 2 PYQ</a></li>
+            <li><a th:href="@{/pdf/AIML Linear endsem_2_01-Copy.pdf}">📘 End Sem PYQ</a></li>
+            <li><a th:href="@{/pdf/Coming_Soon_Notes_Updated.pdf}">📘 Notes</a></li>
+        </ul>
+        <div class="card-bottom">
+            <span class="rating-text">⭐ 4.6/5 (16 Reviews)</span><br>
+            <a th:href="@{/feedback(subject='Linear Algebra')}" class="fb-btn">Give Feedback</a>
+        </div>
+    </div>
+
+    <!-- ME -->
+    <div class="box-container">
+        <h3>ME</h3>
+        <ul>
+            <li><a th:href="@{/pdf/AIML ME mid1.pdf}">📘 Mid Sem 1 PYQ</a></li>
+            <li><a th:href="@{/pdf/}">📘 Mid Sem 2 PYQ</a></li>
+            <li><a th:href="@{/pdf/AIML ME endsem_2_01-Copy.pdf}">📘 End Sem PYQ</a></li>
+            <li><a th:href="@{/pdf/Coming_Soon_Notes_Updated.pdf}">📘 Notes</a></li>
+        </ul>
+        <div class="card-bottom">
+            <span class="rating-text">⭐ 4.3/5 (18 Reviews)</span><br>
+            <a th:href="@{/feedback(subject='ME')}" class="fb-btn">Give Feedback</a>
+        </div>
+    </div>
+
+    <!-- BEEE -->
+    <div class="box-container">
+        <h3>BEEE</h3>
+        <ul>
+            <li><a th:href="@{/pdf/AIML Electrical mid1_2_01-Copy.pdf}">📘 Mid Sem 1 PYQ</a></li>
+            <li><a th:href="@{/pdf/}">📘 Mid Sem 2 PYQ</a></li>
+            <li><a th:href="@{/pdf/AIML Electrical endsem_2_01-Copy.pdf}">📘 End Sem PYQ</a></li>
+            <li><a th:href="@{/pdf/Coming_Soon_Notes_Updated.pdf}">📘 Notes</a></li>
+        </ul>
+        <div class="card-bottom">
+            <span class="rating-text">⭐ 3.8/5 (19 Reviews)</span><br>
+            <a th:href="@{/feedback(subject='BEEE')}" class="fb-btn">Give Feedback</a>
+        </div>
+    </div>
+
+    <!-- Data Structures -->
+    <div class="box-container">
+        <h3>Data Structures</h3>
+        <ul>
+            <li><a th:href="@{/pdf/AIML DS mid1.pdf}">📘 Mid Sem 1 PYQ</a></li>
+            <li><a th:href="@{/pdf/}">📘 Mid Sem 2 PYQ</a></li>
+            <li><a th:href="@{/pdf/AIML DS endsem_2_01-Copy.pdf}">📘 End Sem PYQ</a></li>
+            <li><a th:href="@{/pdf/Coming_Soon_Notes_Updated.pdf}">📘 Notes</a></li>
+        </ul>
+        <div class="card-bottom">
+            <span class="rating-text">⭐ 4.7/5 (27 Reviews)</span><br>
+            <a th:href="@{/feedback(subject='Data Structure')}" class="fb-btn">Give Feedback</a>
+        </div>
+    </div>
+
+    <!-- Data Analysis -->
+    <div class="box-container">
+        <h3>Data Analysis using Python</h3>
+        <ul>
+            <li><a th:href="@{/pdf/AIML data analysis mid1.pdf}">📘 Mid Sem 1 PYQ</a></li>
+            <li><a th:href="@{/pdf/}">📘 Mid Sem 2 PYQ</a></li>
+            <li><a th:href="@{/pdf/AIML Data analysis endsem_2_01-Copy.pdf}">📘 End Sem PYQ</a></li>
+            <li><a th:href="@{/pdf/Coming_Soon_Notes_Updated.pdf}">📘 Notes</a></li>
+        </ul>
+        <div class="card-bottom">
+            <span class="rating-text">⭐ 4.6/5 (18 Reviews)</span><br>
+            <a th:href="@{/feedback(subject='Data Analysis')}" class="fb-btn">Give Feedback</a>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    document.getElementById("datetime").innerHTML = new Date().toLocaleString();
+
+    document.getElementById("searchBar").addEventListener("keyup", function() {
+      let input = this.value.toLowerCase();
+      let boxes = document.getElementsByClassName("box-container");
+
+      for (let i = 0; i < boxes.length; i++) {
+        let text = boxes[i].textContent.toLowerCase();
+        boxes[i].style.display = text.includes(input) ? "" : "none";
+      }
+    });
+</script>
+
+</body>
+</html>

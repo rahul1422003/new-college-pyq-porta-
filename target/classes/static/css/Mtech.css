@@ -1,0 +1,135 @@
+/* Body setup */
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #c7cfd9, #e2e8f0);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Blur background fix */
+body::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 20% 20%, rgba(255,255,255,0.4), transparent 70%),
+              radial-gradient(circle at 80% 80%, rgba(255,255,255,0.4), transparent 70%);
+  filter: blur(30px);
+  z-index: 0;
+}
+
+/* Top-left logo */
+.logo-top {
+  position: absolute;
+  top: 15px;
+  left: 20px;
+  z-index: 2;
+}
+
+.logo-top img {
+  width: 150px;
+}
+
+/* Main box */
+.coming-box {
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  padding: 40px 30px;
+  width: 360px;
+  text-align: center;
+  z-index: 2;
+  animation: fadeIn 1s ease-in-out;
+}
+
+/* Logo inside box */
+.logo-inside {
+  width: 150px;
+  margin-bottom: 25px;
+}
+
+h2 {
+  color: #1f2937;
+  font-size: 1.5rem;
+  margin-bottom: 12px;
+}
+
+p {
+  color: #4b5563;
+  font-size: 0.95rem;
+  margin-bottom: 25px;
+}
+
+/* Disabled button */
+.btn {
+  background-color: #1e3a8a;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-weight: 600;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Credit section */
+.credit-section {
+  text-align: center;
+  font-size: 13px;
+  color: #333;
+  line-height: 1.5;
+  font-weight: 500;
+  z-index: 3;
+  position: relative;
+  margin-top: 25px;
+  animation: fadeIn 1.5s ease-in-out;
+}
+
+.credit-section .highlight {
+  color: #004e92;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.credit-section .name {
+  color: #000;
+  font-weight: 700;
+  transition: 0.3s ease;
+}
+
+.credit-section .name:hover {
+  color: #004e92;
+  text-shadow: 0 0 8px rgba(0, 78, 146, 0.7);
+  cursor: pointer;
+  transform: scale(1.05);
+}
+
+.credit-section .enroll {
+  color: #555;
+  font-size: 12px;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
+  .coming-box {
+    width: 85%;
+    padding: 25px 20px;
+  }
+
+  h2 { font-size: 1.3rem; }
+  p { font-size: 0.9rem; }
+  .logo-top img { width: 120px; }
+  .logo-inside { width: 100px; }
+}

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Semester 4 | LNCT PYQ Portal</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" th:href="@{/css/sem4.css}">
+</head>
+
+<body>
+
+<div class="header">
+    <img th:src="@{/images/lnct.png}" alt="LNCT Logo" class="logo">
+
+    <input type="text" id="searchBar" placeholder="Search Subject">
+
+    <div class="title">
+        <h1><u>Semester 4</u></h1>
+        <h2>LNCT University, Bhopal</h2>
+
+        <!-- ✅ Dynamic -->
+        <p>
+            Welcome <span th:text="${name}"></span> |
+            Enrollment No: <span th:text="${enrollment}"></span>
+        </p>
+
+        <p id="datetime"></p>
+    </div>
+</div>
+
+<div class="subject">
+
+    <!-- Web Tech -->
+    <div class="box-container">
+        <h3>Web Technology</h3>
+        <ul>
+            <li><a th:href="@{/pdf/wt mid1.pdf}">📘 Mid Sem 1 PYQ</a></li>
+            <li><a th:href="@{/pdf/WT mid2 sem4.pdf}">📘 Mid Sem 2 PYQ</a></li>
+            <li><a th:href="@{/pdf/End sem pyq sem4_10_09-Copy.pdf}">📘 End Sem PYQ</a></li>
+            <li><a th:href="@{/pdf/Coming_Soon_Notes_Updated.pdf}">📘 Notes</a></li>
+        </ul>
+        <div class="card-bottom">
+            <span class="rating-text">⭐ 4.6/5 (29 Reviews)</span><br>
+            <a th:href="@{/feedback(subject='Web Technology')}" class="fb-btn">Give Feedback</a>
+        </div>
+    </div>
+
+    <!-- ADA -->
+    <div class="box-container">
+        <h3>ADA</h3>
+        <ul>
+            <li><a th:href="@{/pdf/AIML data analysis mid1.pdf}">📘 Mid Sem 1 PYQ</a></li>
+            <li><a th:href="@{/pdf/AIML Data analysis mid2.pdf}">📘 Mid Sem 2 PYQ</a></li>
+            <li><a th:href="@{/pdf/AIML data science endsem_2_01-Copy.pdf}">📘 End Sem PYQ</a></li>
+            <li><a th:href="@{/pdf/Coming_Soon_Notes_Updated.pdf}">📘 Notes</a></li>
+        </ul>
+        <div class="card-bottom">
+            <span class="rating-text">⭐ 3.8/5 (21 Reviews)</span><br>
+            <a th:href="@{/feedback(subject='ADA')}" class="fb-btn">Give Feedback</a>
+        </div>
+    </div>
+
+    <!-- SEPM -->
+    <div class="box-container">
+        <h3>SEPM</h3>
+        <ul>
+            <li><a th:href="@{/pdf/sepm mid1.pdf}">📘 Mid Sem 1 PYQ</a></li>
+            <li><a th:href="@{/pdf/SEPM mid2 sem4.pdf}">📘 Mid Sem 2 PYQ</a></li>
+            <li><a th:href="@{/pdf/End sem pyq sem4_6_05 end sem pyq sem 4 sepm-Copy.pdf}">📘 End Sem PYQ</a></li>
+            <li><a th:href="@{/pdf/Coming_Soon_Notes_Updated.pdf}">📘 Notes</a></li>
+        </ul>
+        <div class="card-bottom">
+            <span class="rating-text">⭐ 4.2/5 (22 Reviews)</span><br>
+            <a th:href="@{/feedback(subject='SEPM')}" class="fb-btn">Give Feedback</a>
+        </div>
+    </div>
+
+    <!-- AI Product -->
+    <div class="box-container">
+        <h3>AI Product Development and Deployment</h3>
+        <ul>
+            <li><a th:href="@{/pdf/AIML development mid1.pdf}">📘 Mid Sem 1 PYQ</a></li>
+            <li><a th:href="@{/pdf/AIML development mid2.pdf}">📘 Mid Sem 2 PYQ</a></li>
+            <li><a th:href="@{/pdf/New Doc 11-02-2025 14.24.pdf}">📘 End Sem PYQ</a></li>
+            <li><a th:href="@{/pdf/Coming_Soon_Notes_Updated.pdf}">📘 Notes</a></li>
+        </ul>
+        <div class="card-bottom">
+            <span class="rating-text">⭐ 3.8/5 (16 Reviews)</span><br>
+            <a th:href="@{/feedback(subject='Product Development')}" class="fb-btn">Give Feedback</a>
+        </div>
+    </div>
+
+    <!-- ML -->
+    <div class="box-container">
+        <h3>Machine Learning and Pattern Recognition</h3>
+        <ul>
+            <li><a th:href="@{/pdf/}">📘 Mid Sem 1 PYQ</a></li>
+            <li><a th:href="@{/pdf/}">📘 Mid Sem 2 PYQ</a></li>
+            <li><a th:href="@{/pdf/}">📘 End Sem PYQ</a></li>
+            <li><a th:href="@{/pdf/Coming_Soon_Notes_Updated.pdf}">📘 Notes</a></li>
+        </ul>
+        <div class="card-bottom">
+            <span class="rating-text">⭐ 4.4/5 (19 Reviews)</span><br>
+            <a th:href="@{/feedback(subject='Machine Learning')}" class="fb-btn">Give Feedback</a>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    document.getElementById("datetime").innerHTML = new Date().toLocaleString();
+
+    document.getElementById("searchBar").addEventListener("keyup", function() {
+      let input = this.value.toLowerCase();
+      let boxes = document.getElementsByClassName("box-container");
+
+      for (let i = 0; i < boxes.length; i++) {
+        let text = boxes[i].textContent.toLowerCase();
+        boxes[i].style.display = text.includes(input) ? "" : "none";
+      }
+    });
+</script>
+
+</body>
+</html>
