@@ -1,51 +1,83 @@
-# Deployment Guide
+# Render Deployment Guide
 
-## 1. Firebase Firestore setup
+## What is already ready
 
-Set these environment variables before enabling Firebase sync:
+- `render.yaml` is present in the project root
+- app port is already configured as `server.port=${PORT:8080}`
+- database and admin credentials are env-based
+- Firebase sync is optional and can stay disabled
+
+## Required environment variables
+
+Set these in Render:
+
+- `DB_URL`
+- `DB_USERNAME`
+- `DB_PASSWORD`
+- `ADMIN_EMAIL`
+- `ADMIN_PASSWORD`
+
+Optional Firebase variables:
+
+- `FIREBASE_ENABLED`
+- `FIREBASE_PROJECT_ID`
+- `FIREBASE_SERVICE_ACCOUNT_JSON`
+
+## If you use Firebase
+
+Use:
 
 - `FIREBASE_ENABLED=true`
-- `FIREBASE_PROJECT_ID=<your-firebase-project-id>`
+- `FIREBASE_PROJECT_ID=<your-project-id>`
 - `FIREBASE_SERVICE_ACCOUNT_JSON=<full service account json in one line>`
 
-Collections used by the app:
+Firestore collections used:
 
 - `userLogins`
 - `feedback`
 - `placementQuestions`
 - `placementResults`
 
-## 2. Database setup
+## Important note about uploads
 
-Set:
+Render web services use an ephemeral filesystem by default. Files inside `uploads/` are not guaranteed to persist after redeploy or restart.
 
-- `DB_URL`
-- `DB_USERNAME`
-- `DB_PASSWORD`
+For production, move uploaded files to one of these:
 
-## 3. Admin credentials
+- Firebase Storage
+- AWS S3
+- Cloudinary
+- another persistent object/file storage
 
-Set:
+## Step-by-step Render deploy
 
-- `ADMIN_EMAIL`
-- `ADMIN_PASSWORD`
+1. Push this project to GitHub.
+2. Open Render dashboard.
+3. Click `New +`.
+4. Choose `Blueprint`.
+5. Connect your GitHub repo.
+6. Render will detect `render.yaml`.
+7. Review the web service config and continue.
+8. Add the required environment variables.
+9. Click deploy.
+10. Wait for build and start to complete.
+11. Open the generated Render URL.
+12. Test:
+   - `/login`
+   - `/admin/login`
 
-## 4. Render deployment
+## If you also want MySQL on Render
 
-This project includes `render.yaml`.
+You can either:
 
-Recommended Render env vars:
+- use your own existing MySQL database
+- or deploy a separate Render MySQL private service and use its internal URL in `DB_URL`
 
-- `DB_URL`
-- `DB_USERNAME`
-- `DB_PASSWORD`
-- `ADMIN_EMAIL`
-- `ADMIN_PASSWORD`
-- `FIREBASE_ENABLED`
-- `FIREBASE_PROJECT_ID`
-- `FIREBASE_SERVICE_ACCOUNT_JSON`
+Typical internal MySQL URL format on Render:
 
-## 5. Local run
+`jdbc:mysql://<render-mysql-service-name>:3306/<database-name>`
+
+## Local run
 
 ```bash
 mvn spring-boot:run
