@@ -4,6 +4,7 @@
     <title>Manage Users</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" th:href="@{/css/admin-dashboard.css}">
+    <link rel="stylesheet" th:href="@{/css/responsive.css}">
 </head>
 <body>
 
@@ -44,7 +45,9 @@
                     <tr>
                         <th>Name</th>
                         <th>Enrollment</th>
+                        <th>Semester</th>
                         <th>Email</th>
+                        <th>Phone</th>
                         <th>Role</th>
                         <th>Action</th>
                     </tr>
@@ -53,7 +56,9 @@
                     <tr th:each="user : ${users}">
                         <td th:text="${user.name}">Student</td>
                         <td th:text="${user.enrollment}">Enrollment</td>
+                        <td th:text="${user.semester}">Semester</td>
                         <td th:text="${user.email}">Email</td>
+                        <td th:text="${user.phone}">Phone</td>
                         <td><span class="pill" th:text="${user.role}">USER</span></td>
                         <td><a class="danger-link" th:href="@{'/admin/delete-user/' + ${user.id}}">Delete</a></td>
                     </tr>

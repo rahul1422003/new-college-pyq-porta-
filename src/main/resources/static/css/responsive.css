@@ -1,0 +1,293 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  width: 100%;
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+}
+
+img,
+video,
+iframe {
+  max-width: 100%;
+}
+
+input,
+select,
+textarea,
+button {
+  max-width: 100%;
+}
+
+a,
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.header,
+.top-bar,
+.topbar,
+.pdf-preview-top {
+  min-width: 0;
+}
+
+.title,
+.header-content,
+.panel-title,
+.brand,
+.result-row,
+.summary-card,
+.semester-box,
+.box-container,
+.action-card,
+.stat-card {
+  overflow-wrap: anywhere;
+}
+
+.semester,
+.subject,
+.stats-grid,
+.summary-strip,
+.action-grid,
+.detail-grid,
+.preview-grid,
+.admin-grid,
+.grid-two {
+  width: 100%;
+}
+
+.table-wrap,
+table {
+  max-width: 100%;
+}
+
+.table-wrap {
+  -webkit-overflow-scrolling: touch;
+}
+
+.sheet {
+  width: min(100%, 860px);
+}
+
+@media (max-width: 1100px) {
+  .dashboard-shell,
+  .panel-shell {
+    grid-template-columns: 1fr !important;
+  }
+
+  .sidebar {
+    position: static !important;
+  }
+
+  .sidebar nav,
+  nav {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  }
+
+  .admin-grid,
+  .grid-two {
+    grid-template-columns: 1fr !important;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    min-height: 100svh;
+    height: auto !important;
+    overflow-y: auto !important;
+  }
+
+  .header {
+    padding: 22px 14px 34px !important;
+    border-radius: 0 0 16px 16px !important;
+  }
+
+  .top-bar,
+  .topbar,
+  .section-head,
+  .hero-card,
+  .pdf-preview-top {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    text-align: left;
+  }
+
+  .top-actions,
+  .pdf-actions {
+    width: 100%;
+    justify-content: stretch;
+  }
+
+  .top-actions {
+    flex-direction: column;
+  }
+
+  .action-link,
+  .pill-link,
+  .primary-action,
+  .secondary-action,
+  .secondary-link,
+  .download-again {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+  }
+
+  .logo,
+  .fixed-logo {
+    height: 54px !important;
+  }
+
+  .logo-top {
+    position: static !important;
+    margin: 16px auto 0;
+    text-align: center;
+  }
+
+  #searchBar {
+    width: 100% !important;
+    min-height: 42px;
+  }
+
+  .content,
+  .pdf-preview-shell {
+    padding: 16px !important;
+  }
+
+  .subject,
+  .semester,
+  .summary-strip {
+    grid-template-columns: 1fr !important;
+    gap: 14px !important;
+    padding: 16px !important;
+    margin: 0 auto !important;
+  }
+
+  .summary-strip {
+    margin-top: 14px !important;
+  }
+
+  .stats-grid,
+  .action-grid,
+  .detail-grid,
+  .preview-grid,
+  .form-row,
+  .two-col,
+  .hero-meta {
+    grid-template-columns: 1fr !important;
+  }
+
+  .box,
+  .feedback-box,
+  form,
+  .message {
+    width: min(100%, 420px) !important;
+  }
+
+  .box,
+  .feedback-box,
+  form,
+  .panel,
+  .panel-card,
+  .hero-card,
+  .stat-card,
+  .box-container,
+  .semester-box {
+    padding: 18px !important;
+  }
+
+  .result-row,
+  .download-row {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+  }
+
+  .stat-card strong,
+  .topbar h1 {
+    font-size: 1.75rem !important;
+  }
+
+  .title h1,
+  .header-content h1,
+  .pdf-preview-top h1 {
+    font-size: 1.45rem !important;
+  }
+
+  .pdf-frame-wrap,
+  .pdf-frame-wrap iframe {
+    min-height: 68svh !important;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .sidebar,
+  .content,
+  .pdf-preview-shell {
+    padding: 14px !important;
+  }
+
+  .sidebar nav,
+  nav {
+    grid-template-columns: 1fr !important;
+  }
+
+  .brand {
+    align-items: flex-start;
+  }
+
+  .brand img,
+  .brand-mark {
+    width: 46px !important;
+    height: 46px !important;
+  }
+
+  .hero-meta div,
+  .detail-grid div,
+  .preview-grid div,
+  .summary-card,
+  .result-row {
+    padding: 14px !important;
+  }
+
+  th,
+  td {
+    padding: 10px !important;
+    font-size: 0.88rem;
+  }
+
+  table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .sheet {
+    padding: 18px !important;
+  }
+
+  .watermark {
+    font-size: 44px !important;
+  }
+
+  .stars label {
+    font-size: 30px !important;
+  }
+}

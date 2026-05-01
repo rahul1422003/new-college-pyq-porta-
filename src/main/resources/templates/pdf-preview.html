@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${paperName + ' | Preview'}">Paper Preview</title>
+    <link rel="stylesheet" th:href="@{/css/student-panel.css}">
+    <link rel="stylesheet" th:href="@{/css/responsive.css}">
+</head>
+<body>
+
+<main class="pdf-preview-shell">
+    <section class="pdf-preview-top">
+        <div>
+            <p class="eyebrow">Paper Preview</p>
+            <h1 th:text="${paperName}">Paper name</h1>
+        </div>
+        <div class="pdf-actions">
+            <a th:href="@{/dashboard}" class="secondary-link">Dashboard</a>
+            <a th:href="${downloadUrl}" class="pill-link">Download Paper</a>
+        </div>
+    </section>
+
+    <section class="pdf-frame-wrap">
+        <iframe th:src="${viewUrl}" title="Paper preview"></iframe>
+    </section>
+</main>
+
+</body>
+</html>

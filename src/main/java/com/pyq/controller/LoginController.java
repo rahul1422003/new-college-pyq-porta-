@@ -3,6 +3,7 @@ package com.pyq.controller;
 import com.pyq.model.UserLoginRecord;
 import com.pyq.repository.UserLoginRecordRepository;
 import com.pyq.service.FirebaseSyncService;
+import com.pyq.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,6 +23,9 @@ public class LoginController {
 
     @Autowired
     private FirebaseSyncService firebaseSyncService;
+
+    @Autowired
+    private UserService userService;
 
     @GetMapping("/login")
     public String loginPage() {
@@ -54,21 +58,24 @@ public class LoginController {
             return "redirect:/login";
         }
 
-        session.setAttribute("name", cleanName);
-        session.setAttribute("enrollment", cleanEnrollment);
-        session.setAttribute("semester", semester);
+        var user = userService.createOrUpdateStudent(cleanName, cleanEnrollment, semester);
+
+        session.setAttribute("userId", user.getId());
+        session.setAttribute("name", user.getName());
+        session.setAttribute("enrollment", user.getEnrollment());
+        session.setAttribute("semester", user.getSemester());
         session.setAttribute("role", "USER");
 
         UserLoginRecord record = new UserLoginRecord();
-        record.setName(cleanName);
-        record.setEnrollment(cleanEnrollment);
-        record.setSemester(semester);
+        record.setName(user.getName());
+        record.setEnrollment(user.getEnrollment());
+        record.setSemester(user.getSemester());
         record.setLoginTime(LocalDateTime.now());
         loginRecordRepo.save(record);
         firebaseSyncService.syncLoginRecord(record);
 
-        redirectAttributes.addFlashAttribute("success", "Login successful. Welcome to LNCT PYQ Portal.");
-        return "redirect:/course";
+        redirectAttributes.addFlashAttribute("success", "Login successful. Your dashboard is ready.");
+        return "redirect:/dashboard";
     }
 
     @GetMapping("/logout")

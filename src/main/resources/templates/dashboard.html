@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard | LNCT PYQ Portal</title>
+    <link rel="stylesheet" th:href="@{/css/student-panel.css}">
+    <link rel="stylesheet" th:href="@{/css/responsive.css}">
+</head>
+<body>
+
+<div class="panel-shell">
+    <aside class="sidebar">
+        <div class="brand">
+            <img th:src="@{/images/lnct.png}" alt="LNCT Logo">
+            <div>
+                <h2>LNCT PYQ Portal</h2>
+                <p>Student Workspace</p>
+            </div>
+        </div>
+
+        <nav>
+            <a th:href="@{/dashboard}" class="active">Dashboard</a>
+            <a th:href="@{/profile}">My Profile</a>
+            <a th:href="@{/course}">Courses</a>
+            <a th:href="@{/placement}">Placement</a>
+            <a th:href="${semesterRoute}">My Semester</a>
+            <a th:href="@{/feedback}">Feedback</a>
+            <a th:href="@{/logout}" class="logout-link">Logout</a>
+        </nav>
+    </aside>
+
+    <main class="content">
+        <section class="hero-card">
+            <div>
+                <p class="eyebrow">Personal Dashboard</p>
+                <h1 th:text="${'Welcome, ' + user.name}">Welcome, Student</h1>
+                <p class="hero-copy">Your login details are now stored in the portal. Update your profile anytime and the dashboard will reflect the latest information.</p>
+            </div>
+            <div class="hero-meta">
+                <div>
+                    <span>Enrollment</span>
+                    <strong th:text="${user.enrollment}">Enrollment</strong>
+                </div>
+                <div>
+                    <span>Semester</span>
+                    <strong th:text="${user.semester}">Semester</strong>
+                </div>
+                <div>
+                    <span>Course</span>
+                    <strong th:text="${user.course != null ? user.course : 'Update in profile'}">Course</strong>
+                </div>
+            </div>
+        </section>
+
+        <div class="flash success" th:if="${success}" th:text="${success}">Profile updated successfully.</div>
+
+        <section class="stats-grid">
+            <article class="stat-card">
+                <span>Profile Completion</span>
+                <strong th:text="${profileCompletion + '%'}">0%</strong>
+                <p>Complete your details to personalize the portal.</p>
+            </article>
+            <article class="stat-card">
+                <span>Quiz Attempts</span>
+                <strong th:text="${attemptCount}">0</strong>
+                <p>Total placement quizzes submitted.</p>
+            </article>
+            <article class="stat-card">
+                <span>Best Score</span>
+                <strong th:text="${bestScore + '%'}">0%</strong>
+                <p>Your top placement quiz score so far.</p>
+            </article>
+            <article class="stat-card">
+                <span>Average Score</span>
+                <strong th:text="${averageScore + '%'}">0%</strong>
+                <p>Average score across all placement quiz attempts.</p>
+            </article>
+            <article class="stat-card">
+                <span>Downloaded Papers</span>
+                <strong th:text="${downloadCount}">0</strong>
+                <p>Total PYQ PDFs downloaded from your student panel.</p>
+            </article>
+        </section>
+
+        <section class="grid-two">
+            <article class="panel-card">
+                <div class="section-head">
+                    <div>
+                        <p class="eyebrow">Student Info</p>
+                        <h2>Stored Profile</h2>
+                    </div>
+                    <a th:href="@{/profile}" class="pill-link">Edit Profile</a>
+                </div>
+
+                <div class="detail-grid">
+                    <div>
+                        <span>Name</span>
+                        <strong th:text="${user.name}">Student</strong>
+                    </div>
+                    <div>
+                        <span>Email</span>
+                        <strong th:text="${user.email != null ? user.email : 'Not added yet'}">Not added yet</strong>
+                    </div>
+                    <div>
+                        <span>Phone</span>
+                        <strong th:text="${user.phone != null ? user.phone : 'Not added yet'}">Not added yet</strong>
+                    </div>
+                    <div>
+                        <span>Last Login</span>
+                        <strong th:text="${user.lastLoginAt != null ? #temporals.format(user.lastLoginAt, 'dd MMM yyyy hh:mm a') : 'First login'}">Date</strong>
+                    </div>
+                </div>
+            </article>
+
+            <article class="panel-card">
+                <div class="section-head">
+                    <div>
+                        <p class="eyebrow">Quick Access</p>
+                        <h2>Move Faster</h2>
+                    </div>
+                </div>
+
+                <div class="action-grid">
+                    <a th:href="@{/course}" class="action-card">
+                        <strong>Browse Courses</strong>
+                        <span>Open all available course sections and PYQ collections.</span>
+                    </a>
+                    <a th:href="@{/placement}" class="action-card">
+                        <strong>Placement Lab</strong>
+                        <span>Practice aptitude and fundamentals, then take the quiz.</span>
+                    </a>
+                    <a th:href="@{/profile}" class="action-card">
+                        <strong>Update Profile</strong>
+                        <span>Add course, email and phone so your panel feels complete.</span>
+                    </a>
+                    <a th:href="@{/feedback}" class="action-card">
+                        <strong>Share Feedback</strong>
+                        <span>Tell the admin what would make the portal better.</span>
+                    </a>
+                </div>
+            </article>
+        </section>
+
+        <section class="panel-card">
+            <div class="section-head">
+                <div>
+                    <p class="eyebrow">Download History</p>
+                    <h2>Your Downloaded Papers</h2>
+                </div>
+                <a th:href="${semesterRoute}" class="pill-link">Browse Papers</a>
+            </div>
+
+            <div class="result-list" th:if="${!recentDownloads.isEmpty()}">
+                <div class="result-row download-row" th:each="download : ${recentDownloads}">
+                    <div>
+                        <strong th:text="${download.paperName}">Paper name</strong>
+                        <span th:text="${'Downloaded on ' + #temporals.format(download.downloadedAt, 'dd MMM yyyy hh:mm a')}">Date</span>
+                    </div>
+                    <a class="download-again" th:href="@{/pdf/{paper}(paper=${download.paperName})}">View Again</a>
+                </div>
+            </div>
+
+            <div class="empty-state" th:if="${recentDownloads.isEmpty()}">
+                No paper downloaded yet. Open your semester papers and download any PDF to see it here.
+            </div>
+        </section>
+
+        <section class="panel-card">
+            <div class="section-head">
+                <div>
+                    <p class="eyebrow">Placement Record</p>
+                    <h2>Recent Quiz Results</h2>
+                </div>
+                <span class="muted" th:text="${questionCount + ' total questions available'}">0 total questions available</span>
+            </div>
+
+            <div class="result-list" th:if="${!recentResults.isEmpty()}">
+                <div class="result-row" th:each="result : ${recentResults}">
+                    <div>
+                        <strong th:text="${result.scorePercent + '% score'}">0% score</strong>
+                        <span th:text="${result.correctAnswers + ' correct out of ' + result.totalQuestions}">0 correct out of 0</span>
+                    </div>
+                    <b th:text="${#temporals.format(result.attemptedAt, 'dd MMM yyyy hh:mm a')}">Date</b>
+                </div>
+            </div>
+
+            <div class="empty-state" th:if="${recentResults.isEmpty()}">
+                No placement quiz attempt yet. Start one from the placement section.
+            </div>
+        </section>
+    </main>
+</div>
+
+</body>
+</html>

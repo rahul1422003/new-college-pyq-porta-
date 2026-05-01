@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile | LNCT PYQ Portal</title>
+    <link rel="stylesheet" th:href="@{/css/student-panel.css}">
+    <link rel="stylesheet" th:href="@{/css/responsive.css}">
+</head>
+<body>
+
+<div class="panel-shell">
+    <aside class="sidebar">
+        <div class="brand">
+            <img th:src="@{/images/lnct.png}" alt="LNCT Logo">
+            <div>
+                <h2>LNCT PYQ Portal</h2>
+                <p>Student Workspace</p>
+            </div>
+        </div>
+
+        <nav>
+            <a th:href="@{/dashboard}">Dashboard</a>
+            <a th:href="@{/profile}" class="active">My Profile</a>
+            <a th:href="@{/course}">Courses</a>
+            <a th:href="@{/placement}">Placement</a>
+            <a th:href="@{/feedback}">Feedback</a>
+            <a th:href="@{/logout}" class="logout-link">Logout</a>
+        </nav>
+    </aside>
+
+    <main class="content">
+        <section class="hero-card compact">
+            <div>
+                <p class="eyebrow">Profile Settings</p>
+                <h1>Update your student details</h1>
+                <p class="hero-copy">Any changes you save here will immediately update your dashboard as well.</p>
+            </div>
+            <a th:href="@{/dashboard}" class="pill-link">Back to Dashboard</a>
+        </section>
+
+        <div class="flash error" th:if="${error}" th:text="${error}">Please enter valid details.</div>
+        <div class="flash success" th:if="${success}" th:text="${success}">Profile updated successfully.</div>
+
+        <section class="grid-two">
+            <article class="panel-card">
+                <div class="section-head">
+                    <div>
+                        <p class="eyebrow">Edit Details</p>
+                        <h2>Student Profile</h2>
+                    </div>
+                </div>
+
+                <form th:action="@{/profile/update}" method="post" enctype="multipart/form-data" class="profile-form">
+                    <label>
+                        <span>Profile Picture</span>
+                        <input type="file" name="profileImage" accept="image/png,image/jpeg,image/webp">
+                    </label>
+
+                    <label>
+                        <span>Full Name</span>
+                        <input type="text" name="name" th:value="${user.name}" required>
+                    </label>
+
+                    <label>
+                        <span>Enrollment Number</span>
+                        <input type="text" th:value="${user.enrollment}" readonly>
+                    </label>
+
+                    <label>
+                        <span>Semester</span>
+                        <select name="semester" required>
+                            <option th:selected="${user.semester == 'Semester 1'}" value="Semester 1">Semester 1</option>
+                            <option th:selected="${user.semester == 'Semester 2'}" value="Semester 2">Semester 2</option>
+                            <option th:selected="${user.semester == 'Semester 3'}" value="Semester 3">Semester 3</option>
+                            <option th:selected="${user.semester == 'Semester 4'}" value="Semester 4">Semester 4</option>
+                            <option th:selected="${user.semester == 'Semester 5'}" value="Semester 5">Semester 5</option>
+                            <option th:selected="${user.semester == 'Semester 6'}" value="Semester 6">Semester 6</option>
+                            <option th:selected="${user.semester == 'Semester 7'}" value="Semester 7">Semester 7</option>
+                            <option th:selected="${user.semester == 'Semester 8'}" value="Semester 8">Semester 8</option>
+                        </select>
+                    </label>
+
+                    <label>
+                        <span>Email</span>
+                        <input type="email" name="email" th:value="${user.email}" placeholder="student@example.com">
+                    </label>
+
+                    <label>
+                        <span>Phone</span>
+                        <input type="tel" name="phone" th:value="${user.phone}" placeholder="10 digit number">
+                    </label>
+
+                    <label>
+                        <span>Course</span>
+                        <select name="course">
+                            <option value="">Select course</option>
+                            <option th:selected="${user.course == 'B.Tech-CSE'}" value="B.Tech-CSE">B.Tech-CSE</option>
+                            <option th:selected="${user.course == 'B.Tech-AIML'}" value="B.Tech-AIML">B.Tech-AIML</option>
+                            <option th:selected="${user.course == 'M.Tech'}" value="M.Tech">M.Tech</option>
+                            <option th:selected="${user.course == 'BCA'}" value="BCA">BCA</option>
+                            <option th:selected="${user.course == 'MCA'}" value="MCA">MCA</option>
+                            <option th:selected="${user.course == 'BBA'}" value="BBA">BBA</option>
+                            <option th:selected="${user.course == 'MBA'}" value="MBA">MBA</option>
+                        </select>
+                    </label>
+
+                    <button type="submit">Save Changes</button>
+                </form>
+            </article>
+
+            <article class="panel-card">
+                <div class="section-head">
+                    <div>
+                        <p class="eyebrow">Preview</p>
+                        <h2>Current Dashboard Data</h2>
+                    </div>
+                </div>
+
+                <div class="profile-preview">
+                    <img class="avatar avatar-image"
+                         th:if="${user.profileImagePath != null}"
+                         th:src="@{${user.profileImagePath}}"
+                         alt="Profile picture">
+                    <div class="avatar"
+                         th:unless="${user.profileImagePath != null}"
+                         th:text="${#strings.substring(user.name, 0, 1).toUpperCase()}">S</div>
+                    <h3 th:text="${user.name}">Student Name</h3>
+                    <p th:text="${user.enrollment}">Enrollment</p>
+                    <div class="preview-grid">
+                        <div>
+                            <span>Semester</span>
+                            <strong th:text="${user.semester}">Semester 1</strong>
+                        </div>
+                        <div>
+                            <span>Course</span>
+                            <strong th:text="${user.course != null ? user.course : 'Not added'}">Not added</strong>
+                        </div>
+                        <div>
+                            <span>Email</span>
+                            <strong th:text="${user.email != null ? user.email : 'Not added'}">Not added</strong>
+                        </div>
+                        <div>
+                            <span>Phone</span>
+                            <strong th:text="${user.phone != null ? user.phone : 'Not added'}">Not added</strong>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </section>
+    </main>
+</div>
+
+</body>
+</html>

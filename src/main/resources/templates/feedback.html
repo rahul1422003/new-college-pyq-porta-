@@ -2,22 +2,24 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Feedback</title>
 
     <link rel="stylesheet" th:href="@{/css/feedback.css}">
+    <link rel="stylesheet" th:href="@{/css/responsive.css}">
 </head>
 
 <body>
 
 <div class="logo-top">
-    <img th:src="@{/images/lnct.png}">
+    <img th:src="@{/images/lnct.png}" alt="LNCT Logo">
 </div>
 
 <div class="feedback-box">
 
-    <img th:src="@{/images/lnct.png}" class="logo-inside">
+    <img th:src="@{/images/lnct.png}" class="logo-inside" alt="LNCT Logo">
 
-    <h2>📝 Student Feedback</h2>
+    <h2>Student Feedback</h2>
 
     <div class="user-info">
         <strong th:text="${name}"></strong><br>
@@ -28,22 +30,21 @@
         Subject: <span th:text="${subject}"></span>
     </div>
 
-    <!-- ✅ FORM -->
     <form th:action="@{/feedback}" method="post">
 
         <input type="hidden" name="subject" th:value="${subject}">
 
         <div class="stars">
-            <input type="radio" id="s5" name="rating" value="5"><label for="s5">★</label>
-            <input type="radio" id="s4" name="rating" value="4"><label for="s4">★</label>
-            <input type="radio" id="s3" name="rating" value="3"><label for="s3">★</label>
-            <input type="radio" id="s2" name="rating" value="2"><label for="s2">★</label>
-            <input type="radio" id="s1" name="rating" value="1"><label for="s1">★</label>
+            <input type="radio" id="s5" name="rating" value="5" required><label for="s5">&#9733;</label>
+            <input type="radio" id="s4" name="rating" value="4"><label for="s4">&#9733;</label>
+            <input type="radio" id="s3" name="rating" value="3"><label for="s3">&#9733;</label>
+            <input type="radio" id="s2" name="rating" value="2"><label for="s2">&#9733;</label>
+            <input type="radio" id="s1" name="rating" value="1"><label for="s1">&#9733;</label>
         </div>
 
-        <textarea name="comment" placeholder="Write feedback..."></textarea>
+        <textarea name="comment" placeholder="Write feedback..." required></textarea>
 
-        <button type="submit" class="btn">Submit</button> ✅
+        <button type="submit" class="btn">Submit</button>
 
     </form>
 
