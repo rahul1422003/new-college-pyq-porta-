@@ -1,11 +1,12 @@
 package com.pyq.repository;
 
 import com.pyq.model.UserDownload;
-import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface UserDownloadRepository extends JpaRepository<UserDownload, Integer> {
+public interface UserDownloadRepository {
+
+    UserDownload save(UserDownload download);
 
     List<UserDownload> findByEnrollmentOrderByDownloadedAtDesc(String enrollment);
 

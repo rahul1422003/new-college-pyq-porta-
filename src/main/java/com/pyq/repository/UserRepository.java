@@ -1,11 +1,21 @@
 package com.pyq.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
 import com.pyq.model.User;
+import org.springframework.data.domain.Sort;
 
-public interface UserRepository extends JpaRepository<User, Integer> {
+import java.util.List;
+
+public interface UserRepository {
+
+    long count();
+
+    List<User> findAll(Sort sort);
+
+    User save(User user);
 
     User findByEnrollment(String enrollment);
 
-    User findByEmail(String email);  // 🔥 important
+    User findByEmail(String email);
+
+    void deleteById(int id);
 }

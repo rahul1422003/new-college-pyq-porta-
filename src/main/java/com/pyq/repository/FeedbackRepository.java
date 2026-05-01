@@ -1,7 +1,17 @@
 package com.pyq.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
 import com.pyq.model.Feedback;
+import org.springframework.data.domain.Sort;
 
-public interface FeedbackRepository extends JpaRepository<Feedback, Integer> {
+import java.util.List;
+
+public interface FeedbackRepository {
+
+    long count();
+
+    List<Feedback> findAll(Sort sort);
+
+    Feedback save(Feedback feedback);
+
+    void deleteById(int id);
 }

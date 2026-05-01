@@ -11,19 +11,13 @@
 
 Set these in Render:
 
-- `DB_URL`
-- `DB_USERNAME`
-- `DB_PASSWORD`
 - `ADMIN_EMAIL`
 - `ADMIN_PASSWORD`
-
-Optional Firebase variables:
-
 - `FIREBASE_ENABLED`
 - `FIREBASE_PROJECT_ID`
 - `FIREBASE_SERVICE_ACCOUNT_JSON`
 
-## If you use Firebase
+## Firebase
 
 Use:
 
@@ -33,10 +27,16 @@ Use:
 
 Firestore collections used:
 
+- `users`
 - `userLogins`
 - `feedback`
 - `placementQuestions`
 - `placementResults`
+- `userDownloads`
+
+## Database
+
+The app now uses Firebase Firestore repositories and does not require MySQL for Render startup.
 
 ## Important note about uploads
 
@@ -65,17 +65,6 @@ For production, move uploaded files to one of these:
 12. Test:
    - `/login`
    - `/admin/login`
-
-## If you also want MySQL on Render
-
-You can either:
-
-- use your own existing MySQL database
-- or deploy a separate Render MySQL private service and use its internal URL in `DB_URL`
-
-Typical internal MySQL URL format on Render:
-
-`jdbc:mysql://<render-mysql-service-name>:3306/<database-name>`
 
 ## Local run
 
