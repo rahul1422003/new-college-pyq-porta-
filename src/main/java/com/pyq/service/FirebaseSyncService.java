@@ -103,6 +103,7 @@ public class FirebaseSyncService {
         Map<String, Object> data = new LinkedHashMap<>();
         data.put("name", result.getName());
         data.put("enrollment", result.getEnrollment());
+        data.put("category", result.getCategory());
         data.put("totalQuestions", result.getTotalQuestions());
         data.put("correctAnswers", result.getCorrectAnswers());
         data.put("scorePercent", result.getScorePercent());

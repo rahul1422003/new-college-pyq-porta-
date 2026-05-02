@@ -15,6 +15,8 @@ public interface PlacementResultRepository {
 
     List<PlacementResult> findByEnrollmentOrderByAttemptedAtDesc(String enrollment);
 
+    List<PlacementResult> findByEnrollmentAndCategoryOrderByAttemptedAtDesc(String enrollment, String category);
+
     default List<PlacementResult> latestFirst() {
         return findAll(Sort.by(Sort.Direction.DESC, "attemptedAt"));
     }

@@ -15,6 +15,8 @@ public interface PlacementQuestionRepository {
 
     List<PlacementQuestion> findAllByOrderByCategoryAscDifficultyAscIdDesc();
 
+    List<PlacementQuestion> findByCategoryIgnoreCaseOrderByDifficultyAscIdDesc(String category);
+
     default List<PlacementQuestion> latestFirst() {
         return findAll(Sort.by(Sort.Direction.DESC, "id"));
     }

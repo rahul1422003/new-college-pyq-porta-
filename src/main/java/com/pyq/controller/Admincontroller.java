@@ -22,6 +22,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequestMapping("/admin")
 public class Admincontroller {
 
+    private static final String APTITUDE_CATEGORY = "Aptitude";
+    private static final String TECHNICAL_CATEGORY = "Technical";
+
     @Autowired
     private FeedbackRepository feedbackRepo;
 
@@ -52,6 +55,22 @@ public class Admincontroller {
     private boolean checkAdmin(HttpSession session) {
         return session.getAttribute("role") != null &&
                 session.getAttribute("role").equals("ADMIN");
+    }
+
+    private String normalizeQuizCategory(String category) {
+        if (category == null) {
+            return null;
+        }
+
+        if (APTITUDE_CATEGORY.equalsIgnoreCase(category)) {
+            return APTITUDE_CATEGORY;
+        }
+
+        if (TECHNICAL_CATEGORY.equalsIgnoreCase(category)) {
+            return TECHNICAL_CATEGORY;
+        }
+
+        return null;
     }
 
     @GetMapping("/login")
@@ -150,11 +169,20 @@ public class Admincontroller {
 
     @PostMapping("/placement-quiz")
     public String savePlacementQuestion(@ModelAttribute PlacementQuestion question,
-                                        HttpSession session) {
+                                        HttpSession session,
+                                        RedirectAttributes redirectAttributes) {
         if (!checkAdmin(session)) return "redirect:/admin/login";
 
+        String category = normalizeQuizCategory(question.getCategory());
+        if (category == null) {
+            redirectAttributes.addFlashAttribute("error", "Please select Aptitude or Technical section.");
+            return "redirect:/admin/placement-quiz";
+        }
+
+        question.setCategory(category);
         questionRepo.save(question);
         firebaseSyncService.syncPlacementQuestion(question);
+        redirectAttributes.addFlashAttribute("success", category + " question added successfully.");
         return "redirect:/admin/placement-quiz";
     }
 

@@ -112,7 +112,7 @@
                     <div class="result-row" th:each="result : ${recentResults}">
                         <div>
                             <strong th:text="${result.name}">Student</strong>
-                            <span th:text="${result.enrollment}">Enrollment</span>
+                            <span th:text="${result.enrollment + (result.category != null ? ' | ' + result.category : '')}">Enrollment</span>
                         </div>
                         <b th:text="${result.scorePercent + '%'}">0%</b>
                     </div>

@@ -7,6 +7,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 
+import com.pyq.util.AppClock;
+
 import java.time.LocalDateTime;
 
 @Entity
@@ -33,7 +35,7 @@ public class User {
 
     @PrePersist
     public void onCreate() {
-        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime now = AppClock.now();
         createdAt = now;
         updatedAt = now;
         if (role == null || role.isBlank()) {
@@ -43,7 +45,7 @@ public class User {
 
     @PreUpdate
     public void onUpdate() {
-        updatedAt = LocalDateTime.now();
+        updatedAt = AppClock.now();
     }
 
     public int getId() {

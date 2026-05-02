@@ -2,6 +2,7 @@ package com.pyq.repository;
 
 import com.google.cloud.firestore.DocumentSnapshot;
 import com.pyq.model.User;
+import com.pyq.util.AppClock;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
@@ -25,7 +26,7 @@ public class FirebaseUserRepository extends FirestoreRepositorySupport<User> imp
 
     @Override
     public User save(User user) {
-        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime now = AppClock.now();
         if (user.getId() == 0) {
             user.setId(nextId(COLLECTION, User::getId));
             user.setCreatedAt(now);

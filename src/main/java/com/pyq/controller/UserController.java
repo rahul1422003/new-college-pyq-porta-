@@ -12,6 +12,7 @@ import com.pyq.repository.UserDownloadRepository;
 import com.pyq.service.FeedbackService;
 import com.pyq.service.FirebaseSyncService;
 import com.pyq.service.UserService;
+import com.pyq.util.AppClock;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.ContentDisposition;
@@ -32,7 +33,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.charset.StandardCharsets;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -40,6 +40,9 @@ import java.util.UUID;
 
 @Controller
 public class UserController {
+
+    private static final String APTITUDE_CATEGORY = "Aptitude";
+    private static final String TECHNICAL_CATEGORY = "Technical";
 
     @Autowired
     private FeedbackService feedbackService;
@@ -130,6 +133,14 @@ public class UserController {
         }
 
         return "/sem" + digits;
+    }
+
+    private String resolveQuizCategory(String category) {
+        if (category == null) {
+            return APTITUDE_CATEGORY;
+        }
+
+        return TECHNICAL_CATEGORY.equalsIgnoreCase(category) ? TECHNICAL_CATEGORY : APTITUDE_CATEGORY;
     }
 
     @GetMapping("/")
@@ -273,7 +284,7 @@ public class UserController {
         download.setSemester((String) session.getAttribute("semester"));
         download.setPaperName(fileName);
         download.setPaperPath("/pdf/" + fileName);
-        download.setDownloadedAt(LocalDateTime.now());
+        download.setDownloadedAt(AppClock.now());
         downloadRepo.save(download);
     }
 
@@ -552,13 +563,20 @@ public class UserController {
     }
 
     @GetMapping("/placement/quiz")
-    public String placementQuiz(HttpSession session, Model model) {
+    public String placementQuiz(@RequestParam(required = false) String category,
+                                HttpSession session,
+                                Model model) {
         if (!checkUser(session)) return "redirect:/login";
 
+        String quizCategory = resolveQuizCategory(category);
         setUserData(session, model);
-        model.addAttribute("questions", questionRepo.findAllByOrderByCategoryAscDifficultyAscIdDesc());
+        model.addAttribute("category", quizCategory);
+        model.addAttribute("questions", questionRepo.findByCategoryIgnoreCaseOrderByDifficultyAscIdDesc(quizCategory));
         model.addAttribute("previousResults",
-                resultRepo.findByEnrollmentOrderByAttemptedAtDesc((String) session.getAttribute("enrollment"))
+                resultRepo.findByEnrollmentAndCategoryOrderByAttemptedAtDesc(
+                                (String) session.getAttribute("enrollment"),
+                                quizCategory
+                        )
                         .stream().limit(3).toList()
         );
         return "placement-quiz";
@@ -566,11 +584,13 @@ public class UserController {
 
     @PostMapping("/placement/quiz/submit")
     public String submitPlacementQuiz(@RequestParam Map<String, String> answers,
+                                      @RequestParam(required = false) String category,
                                       HttpSession session,
                                       Model model) {
         if (!checkUser(session)) return "redirect:/login";
 
-        List<PlacementQuestion> questions = questionRepo.findAllByOrderByCategoryAscDifficultyAscIdDesc();
+        String quizCategory = resolveQuizCategory(category);
+        List<PlacementQuestion> questions = questionRepo.findByCategoryIgnoreCaseOrderByDifficultyAscIdDesc(quizCategory);
         int correctAnswers = 0;
 
         for (PlacementQuestion question : questions) {
@@ -588,15 +608,17 @@ public class UserController {
         PlacementResult result = new PlacementResult();
         result.setName((String) session.getAttribute("name"));
         result.setEnrollment((String) session.getAttribute("enrollment"));
+        result.setCategory(quizCategory);
         result.setTotalQuestions(totalQuestions);
         result.setCorrectAnswers(correctAnswers);
         result.setScorePercent(scorePercent);
-        result.setAttemptedAt(LocalDateTime.now());
+        result.setAttemptedAt(AppClock.now());
         resultRepo.save(result);
         firebaseSyncService.syncPlacementResult(result);
 
         setUserData(session, model);
         model.addAttribute("result", result);
+        model.addAttribute("category", quizCategory);
         model.addAttribute("questions", questions);
         model.addAttribute("answers", answers);
         return "placement-result";

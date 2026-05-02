@@ -12,6 +12,7 @@ public class PlacementResult {
 
     private String name;
     private String enrollment;
+    private String category;
     private int totalQuestions;
     private int correctAnswers;
     private int scorePercent;
@@ -39,6 +40,14 @@ public class PlacementResult {
 
     public void setEnrollment(String enrollment) {
         this.enrollment = enrollment;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public int getTotalQuestions() {

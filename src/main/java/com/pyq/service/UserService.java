@@ -1,12 +1,11 @@
 package com.pyq.service;
 
-import java.time.LocalDateTime;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.pyq.model.User;
 import com.pyq.repository.UserRepository;
+import com.pyq.util.AppClock;
 
 @Service
 public class UserService {
@@ -42,7 +41,7 @@ public class UserService {
         user.setCourse(normalizeOptional(user.getCourse()));
         user.setPhone(normalizeOptional(user.getPhone()));
         user.setRole(defaultRole(user.getRole()));
-        user.setLastLoginAt(LocalDateTime.now());
+        user.setLastLoginAt(AppClock.now());
         return repo.save(user);
     }
 
@@ -62,7 +61,7 @@ public class UserService {
 
         user.setName(normalizeName(name));
         user.setSemester(normalizeRequired(semester));
-        user.setLastLoginAt(LocalDateTime.now());
+        user.setLastLoginAt(AppClock.now());
 
         if (user.getRole() == null || user.getRole().isBlank()) {
             user.setRole("USER");

@@ -178,7 +178,7 @@
             <div class="result-list" th:if="${!recentResults.isEmpty()}">
                 <div class="result-row" th:each="result : ${recentResults}">
                     <div>
-                        <strong th:text="${result.scorePercent + '% score'}">0% score</strong>
+                        <strong th:text="${(result.category != null ? result.category + ' - ' : '') + result.scorePercent + '% score'}">0% score</strong>
                         <span th:text="${result.correctAnswers + ' correct out of ' + result.totalQuestions}">0 correct out of 0</span>
                     </div>
                     <b th:text="${#temporals.format(result.attemptedAt, 'dd MMM yyyy hh:mm a')}">Date</b>

@@ -44,6 +44,18 @@ public class FirebasePlacementQuestionRepository extends FirestoreRepositorySupp
     }
 
     @Override
+    public List<PlacementQuestion> findByCategoryIgnoreCaseOrderByDifficultyAscIdDesc(String category) {
+        return findAll(COLLECTION, this::fromDocument).stream()
+                .filter(question -> category != null &&
+                        question.getCategory() != null &&
+                        category.equalsIgnoreCase(question.getCategory()))
+                .sorted(Comparator
+                        .comparing(PlacementQuestion::getDifficulty, Comparator.nullsLast(String::compareToIgnoreCase))
+                        .thenComparing(Comparator.comparingInt(PlacementQuestion::getId).reversed()))
+                .toList();
+    }
+
+    @Override
     public void deleteById(int id) {
         delete(COLLECTION, id);
     }

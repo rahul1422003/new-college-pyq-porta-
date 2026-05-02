@@ -39,17 +39,16 @@
         </section>
 
         <section class="panel">
+            <div class="flash success" th:if="${success}" th:text="${success}">Question added.</div>
+            <div class="flash error" th:if="${error}" th:text="${error}">Please check the form.</div>
+
             <form class="quiz-form" action="/admin/placement-quiz" method="post" th:object="${newQuestion}">
                 <div class="form-row">
-                    <label>Category
+                    <label>Quiz Section
                         <select th:field="*{category}" required>
-                            <option value="">Select Category</option>
+                            <option value="">Select Section</option>
                             <option value="Aptitude">Aptitude</option>
-                            <option value="Reasoning">Reasoning</option>
-                            <option value="Verbal">Verbal</option>
                             <option value="Technical">Technical</option>
-                            <option value="HR Interview">HR Interview</option>
-                            <option value="Company-wise">Company-wise</option>
                         </select>
                     </label>
                     <label>Difficulty

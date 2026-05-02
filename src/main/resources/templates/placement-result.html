@@ -12,7 +12,7 @@
 <header class="quiz-header">
     <div>
         <p>Placement Preparation</p>
-        <h1>Quiz Result</h1>
+        <h1 th:text="${category + ' Result'}">Quiz Result</h1>
         <span>
             <b th:text="${name}">Student</b> |
             Enrollment No: <b th:text="${enrollment}">Enrollment</b>
@@ -27,7 +27,7 @@
         <strong th:text="${result.scorePercent + '%'}">0%</strong>
         <span th:text="${result.correctAnswers + ' correct out of ' + result.totalQuestions}">0 correct</span>
         <div class="result-actions">
-            <a href="/placement/quiz">Retake Quiz</a>
+            <a th:href="@{/placement/quiz(category=${category})}">Retake Quiz</a>
             <a href="/course">Course Home</a>
         </div>
     </section>

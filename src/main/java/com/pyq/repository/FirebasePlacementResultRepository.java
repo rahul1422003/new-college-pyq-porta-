@@ -40,6 +40,14 @@ public class FirebasePlacementResultRepository extends FirestoreRepositorySuppor
     }
 
     @Override
+    public List<PlacementResult> findByEnrollmentAndCategoryOrderByAttemptedAtDesc(String enrollment, String category) {
+        return sorted(findAll(COLLECTION, this::fromDocument).stream()
+                .filter(result -> enrollment != null && enrollment.equalsIgnoreCase(result.getEnrollment()))
+                .filter(result -> category != null && category.equalsIgnoreCase(result.getCategory()))
+                .toList(), PlacementResult::getAttemptedAt, true);
+    }
+
+    @Override
     public void deleteById(int id) {
         delete(COLLECTION, id);
     }
@@ -49,6 +57,7 @@ public class FirebasePlacementResultRepository extends FirestoreRepositorySuppor
         result.setId(documentId(document));
         result.setName(string(document, "name"));
         result.setEnrollment(string(document, "enrollment"));
+        result.setCategory(string(document, "category"));
         result.setTotalQuestions(integer(document, "totalQuestions"));
         result.setCorrectAnswers(integer(document, "correctAnswers"));
         result.setScorePercent(integer(document, "scorePercent"));
